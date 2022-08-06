@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.403" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\NeuralNetworkFrame\NeuralNetworkFrame\NeuralNetworkFrame.csproj" />
+    <ProjectReference Include="..\DrawParser.Core\DrawParser.Core.csproj" />
+  </ItemGroup>
+
+</Project>

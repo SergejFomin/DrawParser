@@ -1,0 +1,102 @@
+﻿<Window x:Class="WpfAppdrawtest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:WpfAppdrawtest"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="650" Width="700">
+    <Window.Resources>
+        <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Header="File">
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Training Data" Command="{Binding ShowTraingViewCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Training">
+                <MenuItem Header="Start Training" Command="{Binding StartTrainingCommand}"/>
+                <MenuItem Header="Stop Training" Command="{Binding StopTrainingCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <Border Grid.Column="0" Grid.Row="1" Margin="2">
+            <InkCanvas x:Name="canvas" >
+                <InkCanvas.DefaultDrawingAttributes>
+                    <DrawingAttributes Width="7" Height="7" Color="Red"/>
+                </InkCanvas.DefaultDrawingAttributes>
+            </InkCanvas>
+        </Border>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Width="150" Height="150" BorderThickness="1" BorderBrush="Black">
+                <Image x:Name="previewImage" d:Width="150" d:Height="150" VerticalAlignment="Top" />
+            </Border>
+
+            <!--Todo: move content of border to another control and give own VM-->
+            <Border Grid.Row="1" Width="150" Height="250" BorderThickness="1" BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Margin="0, -2" Content="Value Probabilities" />
+                    <Button Grid.Column="0" Content="X" Command="{Binding CloseProbabilitiesViewCommand}" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="3,0"/>
+                    <ListView Grid.Row="1" ItemsSource="{Binding ClassificationsCollection}" >
+                        <ListView.View>
+                            <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}" >
+                                <GridViewColumn Width="30" DisplayMemberBinding="{Binding Classification}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Probability}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </Border>
+
+            <!--Todo: move content of border to another control and give own VM-->
+            <Border Grid.Row="2" Width="150" Height="100" BorderThickness="1" BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="0" Content="X" Command="{Binding CloseTrainingViewCommand}" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="3,0"/>
+                    <Label Grid.Row="0" Margin="0, -2" Content="Expected Value" />
+                    <TextBox Grid.Row="1" Margin="5, 1" Text="{Binding ExpectedTrainingData, UpdateSourceTrigger=PropertyChanged}" />
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Label Content="Data Recorded: " />
+                        <Label Content="{Binding AmountCurrentTrainingData}" />
+                    </StackPanel>
+                    <Button Grid.Row="4" Margin="3" Content="Add Training Data" Command="{Binding AddTrainingDataCommand}" />
+                </Grid>
+            </Border>
+
+            <Button Grid.Row="4" Margin="3" Content="Clear Canvas" Click="ClearCanvas_Click" />
+        </Grid>
+    </Grid>
+</Window>
