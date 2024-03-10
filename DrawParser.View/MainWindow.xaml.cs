@@ -1,4 +1,5 @@
 ﻿using DrawParser.View;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,7 +51,7 @@ namespace WpfAppdrawtest
 
         private void UpdateImageAndData()
         {
-            Bitmap resultBitmap;
+            SKBitmap resultBitmap;
             RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)this.canvas.ActualWidth, (int)this.canvas.ActualHeight, 96d, 96d, PixelFormats.Default);
             renderTargetBitmap.Render(this.canvas);
 
@@ -64,14 +65,31 @@ namespace WpfAppdrawtest
 
                 //get the bitmap bytes from the memory stream
                 ms.Position = 0;
-                resultBitmap = BitmapHelper.CropBitmap(new Bitmap(ms), (int)this.canvas.ActualWidth, (int)this.canvas.ActualHeight);
+                var testBitmap = SKBitmap.Decode(ms);
+
+                // saving test
+                using (MemoryStream memStream = new MemoryStream())
+                using (SKManagedWStream wstream = new SKManagedWStream(memStream))
+                {
+                    testBitmap.Encode(wstream, SKEncodedImageFormat.Png, 0);
+                    byte[] data = memStream.ToArray();
+
+                    using (var stream = File.OpenWrite("testImage.png"))
+                    {
+                        memStream.Position = 0;
+                        memStream.WriteTo(stream);
+                    }
+                }
+
+
+                // resultBitmap = BitmapHelper.CropBitmap(SKBitmap.Decode(ms), (int)this.canvas.ActualWidth, (int)this.canvas.ActualHeight);
             }
 
-            resultBitmap = new Bitmap(resultBitmap, 28, 28);
-            resultBitmap = BitmapHelper.MakeGrayscale(resultBitmap);
+            //resultBitmap = new Bitmap(resultBitmap, 28, 28);
+            //resultBitmap = BitmapHelper.MakeGrayscale(resultBitmap);
 
-            this.SetBitmapInImage(resultBitmap);
-            this.SetBitmapInDataSource(resultBitmap);
+            //this.SetBitmapInImage(resultBitmap);
+            //this.SetBitmapInDataSource(resultBitmap);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -80,33 +98,33 @@ namespace WpfAppdrawtest
             this.viewModel.OnClosing();
         }
 
-        private void SetBitmapInImage(Bitmap bitmap)
-        {
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
+        //private void SetBitmapInImage(Bitmap bitmap)
+        //{
+        //    BitmapImage bitmapImage = new BitmapImage();
+        //    bitmapImage.BeginInit();
 
-            var ms = new MemoryStream();
-            bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
-            ms.Seek(0, SeekOrigin.Begin);
-            bitmapImage.StreamSource = ms;
+        //    var ms = new MemoryStream();
+        //    bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+        //    ms.Seek(0, SeekOrigin.Begin);
+        //    bitmapImage.StreamSource = ms;
 
-            bitmapImage.EndInit();
-            this.previewImage.Source = bitmapImage;
-        }
+        //    bitmapImage.EndInit();
+        //    this.previewImage.Source = bitmapImage;
+        //}
 
-        private void SetBitmapInDataSource(Bitmap bitmap)
-        {
-            var result = new double[bitmap.Width * bitmap.Height];
-            for (int y = 0; y < bitmap.Width; y++)
-            {
-                for (int x = 0; x < bitmap.Height; x++)
-                {
-                    int index = y * bitmap.Width + x;
-                    result[index] = (double)1 - bitmap.GetPixel(x, y).GetBrightness();
-                }
-            }
+        //private void SetBitmapInDataSource(Bitmap bitmap)
+        //{
+        //    var result = new double[bitmap.Width * bitmap.Height];
+        //    for (int y = 0; y < bitmap.Width; y++)
+        //    {
+        //        for (int x = 0; x < bitmap.Height; x++)
+        //        {
+        //            int index = y * bitmap.Width + x;
+        //            result[index] = (double)1 - bitmap.GetPixel(x, y).GetBrightness();
+        //        }
+        //    }
 
-            this.viewModel.ImageBrightnessData = result;
-        }
+        //    this.viewModel.ImageBrightnessData = result;
+        //}
     }
 }
