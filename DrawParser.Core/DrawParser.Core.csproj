@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NeuralNetworkFrame\NeuralNetworkFrame\NeuralNetworkFrame.csproj" />
+    <ProjectReference Include="..\NeuralNetworkFrame\NeuralNetworkFrame.csproj" />
   </ItemGroup>
 
 </Project>

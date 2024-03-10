@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NeuralNetworkFrame\NeuralNetworkFrame\NeuralNetworkFrame.csproj" />
     <ProjectReference Include="..\DrawParser.Core\DrawParser.Core.csproj" />
+    <ProjectReference Include="..\NeuralNetworkFrame\NeuralNetworkFrame.csproj" />
   </ItemGroup>
 
 </Project>

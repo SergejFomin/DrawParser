@@ -6,10 +6,16 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawParser.View", "DrawParser.View\DrawParser.View.csproj", "{9D16CA8E-16E8-40C0-AB70-8D6FFB1C4835}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawParser.ViewModel", "DrawParser.ViewModel\DrawParser.ViewModel.csproj", "{18A4577F-86D1-40E8-9066-BA1F69E92D3E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8E56F56B-F719-47B9-9FB3-7043A6136348} = {8E56F56B-F719-47B9-9FB3-7043A6136348}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawParser.Core", "DrawParser.Core\DrawParser.Core.csproj", "{A1662817-21E8-4A68-B504-12A021978FF8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8E56F56B-F719-47B9-9FB3-7043A6136348} = {8E56F56B-F719-47B9-9FB3-7043A6136348}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralNetworkFrame", "..\NeuralNetworkFrame\NeuralNetworkFrame\NeuralNetworkFrame.csproj", "{8AA37B89-F13D-46DA-9E56-25345997582E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralNetworkFrame", "NeuralNetworkFrame\NeuralNetworkFrame.csproj", "{8E56F56B-F719-47B9-9FB3-7043A6136348}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +35,10 @@ Global
 		{A1662817-21E8-4A68-B504-12A021978FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1662817-21E8-4A68-B504-12A021978FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1662817-21E8-4A68-B504-12A021978FF8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AA37B89-F13D-46DA-9E56-25345997582E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AA37B89-F13D-46DA-9E56-25345997582E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AA37B89-F13D-46DA-9E56-25345997582E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AA37B89-F13D-46DA-9E56-25345997582E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E56F56B-F719-47B9-9FB3-7043A6136348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E56F56B-F719-47B9-9FB3-7043A6136348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E56F56B-F719-47B9-9FB3-7043A6136348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E56F56B-F719-47B9-9FB3-7043A6136348}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
